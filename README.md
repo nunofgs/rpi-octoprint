@@ -36,11 +36,10 @@ $ docker run \
 
 # Environment Variables
 
-| Variable                 | Description                    | Default Value      |
-| ------------------------ | ------------------------------ | ------------------ |
-| CAMERA_DEV               | The camera device node         | `/dev/video0`      |
-| MJPEG_STREAMER_AUTOSTART | Start the camera automatically | `true`             |
-| STREAMER_FLAGS           | Flags to pass to mjpg_streamer | `-y -n -r 640x480` |
+| Variable                 | Description                              | Default Value                                  |
+| ------------------------ | ---------------------------------------- | ---------------------------------------------- |
+| MJPEG_STREAMER_INPUT     | The input plugin config of mjpg-streamer | `input_uvc.so -y -n -r 640x480 -d /dev/video0` |
+| MJPEG_STREAMER_AUTOSTART | Start the camera automatically           | `true`                                         |
 
 # CuraEngine integration
 
