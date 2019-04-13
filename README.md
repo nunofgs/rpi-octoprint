@@ -49,9 +49,30 @@ It will return once OctoPrint [supports python3](https://github.com/foosel/OctoP
 
 # Webcam integration
 
-1. Bind the camera to the docker using --device=/dev/video0:/dev/videoX
-2. Optionally, change `STREAMER_FLAGS` to your preferred settings (ex: `-y -n -r 1280x720 -f 10`)
-3. Use the following settings in octoprint:
+## USB Webcam
+1. Bind the camera to the docker using --device=/dev/videoX:/dev/video0
+2. Optionally, change `MJPEG_STREAMER_INPUT` to your preferred settings (ex: `input_uvc.so -y -n -r 640x480 -d /dev/video0`)
+
+## Raspberry Pi camera module
+1. The camera module must be activated (sudo raspi-config -> interfacing -> Camera -> set it to YES)
+2. Memory split must be at least 128mb, 256mb recommended. (sudo raspi-config -> Advanced Options -> Memory Split -> set it to 128 or 256)
+3. You must allow acess to device: /dev/vchiq
+4. Change `MJPEG_STREAMER_INPUT` to use input_raspicam.so (ex: `input_raspicam.so -fps 25`)
+
+Rpi camera module container example: 
+```shell
+$ docker run \
+  -name octoprint \
+  -device /dev/vchiq \
+  -env MJPEG_STREAMER_INPUT='input_raspicam.so -fps 25' \
+  -p 80:80 \
+  -v /mnt/data:/data \
+  nunofgs/octoprint
+```
+
+## Octoprint configuration
+
+Use the following settings in octoprint:
 
 ```yaml
 webcam:

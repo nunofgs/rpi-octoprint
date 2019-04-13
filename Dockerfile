@@ -28,19 +28,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   wget \
   zlib1g-dev
 
-# Download packages
-RUN wget -qO- https://github.com/foosel/OctoPrint/archive/${version}.tar.gz | tar xz
-RUN wget -qO- https://github.com/jacksonliam/mjpg-streamer/archive/master.tar.gz | tar xz
 
-# Install mjpg-streamer
-WORKDIR /mjpg-streamer-master/mjpg-streamer-experimental
-RUN make
-RUN make install
+## Install mjpeg streamer
+WORKDIR /usr/app
+RUN git clone https://github.com/jacksonliam/mjpg-streamer.git .
+
+WORKDIR /usr/app/mjpg-streamer-experimental
+RUN make 
+RUN export LD_LIBRARY_PATH=.
+COPY ./mjpg_streamer_plugins/* /usr/app/mjpg-streamer-experimental/
+
 
 # Install OctoPrint
-WORKDIR /OctoPrint-${version}
+WORKDIR /usr/app
+RUN wget -qO- https://github.com/foosel/OctoPrint/archive/${version}.tar.gz | tar xz
+WORKDIR /usr/app/OctoPrint-${version}
 RUN pip install -r requirements.txt
 RUN python setup.py install
+
 
 VOLUME /data
 WORKDIR /data

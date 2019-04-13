@@ -2,3 +2,4 @@
 !Dockerfile
 !haproxy.cfg
 !supervisord.conf
+!mjpg_streamer_plugins/*
