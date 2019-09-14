@@ -10,6 +10,7 @@ RUN apk --no-cache add libjpeg-turbo-dev
 RUN apk --no-cache add linux-headers
 RUN apk --no-cache add openssl
 RUN apk --no-cache add zlib
+RUN apk --no-cache add gphoto2
 RUN [[ "${TARGETPLATFORM:6}" != "arm64" ]] && apk --no-cache add raspberrypi-dev || true
 
 # Download packages
