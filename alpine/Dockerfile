@@ -9,6 +9,7 @@ RUN apk --no-cache add cmake
 RUN apk --no-cache add libjpeg-turbo-dev
 RUN apk --no-cache add linux-headers
 RUN apk --no-cache add openssl
+RUN apk --no-cache add zlib
 RUN [[ "${TARGETPLATFORM:6}" != "arm64" ]] && apk --no-cache add raspberrypi-dev || true
 
 # Download packages
@@ -22,8 +23,8 @@ RUN make install
 
 # Install OctoPrint
 WORKDIR /OctoPrint-${VERSION}
-RUN pip install -r requirements.txt
-RUN python setup.py install
+RUN LIBRARY_PATH=/lib:/usr/lib pip install -r requirements.txt
+RUN LIBRARY_PATH=/lib:/usr/lib python setup.py install
 
 # Build final image
 FROM python:2.7-alpine3.10
