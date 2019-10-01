@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   ffmpeg \
   fontconfig \
   git \
+  gphoto2 \
   haproxy \
   imagemagick \
   v4l-utils \
@@ -25,6 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   supervisor \
   unzip \
   wget \
+  zlib \
   zlib1g-dev
 
 RUN [[ "${TARGETPLATFORM:6}" != "arm64" ]] && apt-get install -y libraspberrypi-dev || true
