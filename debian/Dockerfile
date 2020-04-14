@@ -60,3 +60,5 @@ ENV PYTHONUSERBASE /data/plugins
 EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
+HEALTHCHECK --start-period=30s CMD wget --quiet --tries=1 --spider http://localhost:80/

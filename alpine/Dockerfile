@@ -33,7 +33,7 @@ COPY --from=build /usr/local/lib /usr/local/lib
 COPY --from=build /mjpg-streamer-*/mjpg-streamer-experimental /opt/mjpg-streamer
 COPY --from=build /OctoPrint-* /opt/octoprint
 
-RUN apk --no-cache add build-base ffmpeg haproxy libjpeg openssh-client supervisor v4l-utils
+RUN apk --no-cache add build-base ffmpeg haproxy libjpeg openssh-client supervisor v4l-utils python-dev py-pip jpeg-dev zlib-dev
 RUN ln -s ~/.octoprint /data
 
 VOLUME /data
@@ -48,6 +48,7 @@ ENV MJPEG_STREAMER_AUTOSTART true
 ENV MJPEG_STREAMER_INPUT -y -n -r 640x480
 ENV PIP_USER true
 ENV PYTHONUSERBASE /data/plugins
+ENV LIBRARY_PATH=/lib:/usr/lib
 
 EXPOSE 80
 
